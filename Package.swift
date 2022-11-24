@@ -4,19 +4,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "matrix",
-    dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .executableTarget(
-            name: "matrix",
-            dependencies: []),
-        .testTarget(
-            name: "matrixTests",
-            dependencies: ["matrix"]),
-    ]
+  name: "Matrix",
+  dependencies: [
+    // Dependencies declare other packages that this package depends on.
+    // .package(url: /* package url */, from: "1.0.0"),
+  ],
+  targets: [
+    // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+    // Targets can depend on other targets in this package, and on products in packages this package depends on.
+    .executableTarget(name: "Ex00", dependencies: ["Functions"]),
+    .testTarget(name: "Ex00Tests", dependencies: ["Functions"]),
+    .target(name: "Utils"),
+    .target(name: "Models"),
+    .target(name: "Functions", dependencies: ["Utils", "Models"]),
+  ]
 )
