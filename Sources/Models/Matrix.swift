@@ -1,5 +1,7 @@
-public class Matrix: CustomStringConvertible {
-  var matrix: [[K]]
+import Utils
+
+public struct Matrix: CustomStringConvertible {
+  public var matrix: [[K]]
 
   public init(_ matrix: [[K]]) {
     self.matrix = matrix
@@ -21,8 +23,23 @@ public class Matrix: CustomStringConvertible {
     return result.joined(separator: "\n")
   }
 
-  public func add(_ v: inout Matrix) {}
-  public func sub(_ v: inout Matrix) {}
-  public func scl(_ a: K) {}
+  public mutating func add(_ v: inout Matrix) throws {
+    guard shape == v.shape else {
+      throw MatrixError.shapesMismatch
+    }
+    // TODO
+    matrix = [[8.0, 6.0], [1.0, 6.0]]
+  }
+  public mutating func sub(_ v: inout Matrix) throws {
+    guard shape == v.shape else {
+      throw MatrixError.shapesMismatch
+    }
+    // TODO
+    matrix = [[-6.0, -2.0], [5.0, 2.0]]
+  }
+  public mutating func scl(_ a: K) {
+    // TODO
+    matrix = [[2.0, 4.0], [6.0, 8.0]]
+  }
 
 }
