@@ -5,7 +5,7 @@ final class VectorTests: XCTestCase {
 
   let additionCases: [([K], [K], [K])] = [
     // From the subject
-    ([2.0, 3.0], [5.0, 7.0], [7.0, 10.0])
+    ([2, 3], [5, 7], [7, 10])
   ]
 
   func testAddition() throws {
@@ -19,7 +19,7 @@ final class VectorTests: XCTestCase {
 
   let subtractionCases: [([K], [K], [K])] = [
     // From the subject
-    ([2.0, 3.0], [5.0, 7.0], [-3.0, -4.0])
+    ([2, 3], [5, 7], [-3, -4])
   ]
 
   func testSubtraction() throws {
@@ -33,7 +33,7 @@ final class VectorTests: XCTestCase {
 
   let scalingCases: [([K], K, [K])] = [
     // From the subject
-    ([2.0, 3.0], 2.0, [4.0, 6.0])
+    ([2, 3], 2, [4, 6])
   ]
 
   func testScaling() throws {
@@ -45,8 +45,8 @@ final class VectorTests: XCTestCase {
   }
 
   let incorrectCases: [([K], [K])] = [
-    ([2.0, 3.0], [5.0, 7.0, 10.0]),
-    ([2.0, 3.0, 4.0], [5.0, 7.0]),
+    ([2, 3], [5, 7, 10]),
+    ([2, 3, 4], [5, 7]),
   ]
 
   func testErrors() throws {

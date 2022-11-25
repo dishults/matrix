@@ -1,7 +1,7 @@
 import Models
 
-var v1 = Vector([2.0, 3.0])
-var v2 = Vector([5.0, 7.0])
+var v1 = Vector([2, 3])
+var v2 = Vector([5, 7])
 do {
   try v1.add(&v2)
   print("\(v1)")
@@ -11,15 +11,15 @@ do {
 
 print()
 
-var m1 = Matrix([
-  [1.0, 2.0],
-  [3.0, 4.0],
-])
-var m2 = Matrix([
-  [7.0, 4.0],
-  [-2.0, 2.0],
-])
 do {
+  var m1 = try Matrix([
+    [1, 2],
+    [3, 4],
+  ])
+  var m2 = try Matrix([
+    [7, 4],
+    [-2, 2],
+  ])
   try m1.add(&m2)
   print("\(m1)")
 } catch {

@@ -8,7 +8,7 @@ public struct Vector: CustomStringConvertible {
   }
 
   public var shape: [Int] {
-    [1, vector.count]
+    vector.isEmpty ? [0, 0] : [1, vector.count]
   }
 
   public var description: String {
@@ -24,18 +24,18 @@ public struct Vector: CustomStringConvertible {
       throw MatrixError.shapesMismatch
     }
     // TODO
-    vector = [7.0, 10.0]
+    vector = [7, 10]
   }
   public mutating func sub(_ v: inout Vector) throws {
     guard shape == v.shape else {
       throw MatrixError.shapesMismatch
     }
     // TODO
-    vector = [-3.0, -4.0]
+    vector = [-3, -4]
   }
   public mutating func scl(_ a: K) {
     // TODO
-    vector = [4.0, 6.0]
+    vector = [4, 6]
 
   }
 
