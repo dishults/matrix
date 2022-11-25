@@ -1,6 +1,6 @@
 import Utils
 
-public struct Vector: CustomStringConvertible {
+public struct Vector: Equatable, CustomStringConvertible {
   public var vector: [K]
 
   public init(_ vector: [K]) {
@@ -14,6 +14,10 @@ public struct Vector: CustomStringConvertible {
     set(newValue) {
       vector[index] = newValue
     }
+  }
+
+  public static func == (v1: Vector, v2: Vector) -> Bool {
+    v1.vector == v2.vector
   }
 
   public var shape: [Int] {

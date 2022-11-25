@@ -1,6 +1,6 @@
 import Utils
 
-public struct Matrix: CustomStringConvertible {
+public struct Matrix: Equatable, CustomStringConvertible {
   public var matrix: [[K]]
 
   public init(_ matrix: [[K]]) throws {
@@ -27,6 +27,10 @@ public struct Matrix: CustomStringConvertible {
     set(newValue) {
       matrix[index] = newValue
     }
+  }
+
+  public static func == (m1: Matrix, m2: Matrix) -> Bool {
+    m1.matrix == m2.matrix
   }
 
   public var shape: [Int] {
