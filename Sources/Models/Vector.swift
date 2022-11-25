@@ -7,6 +7,15 @@ public struct Vector: CustomStringConvertible {
     self.vector = vector
   }
 
+  public subscript(index: Int) -> K {
+    get {
+      return vector[index]
+    }
+    set(newValue) {
+      vector[index] = newValue
+    }
+  }
+
   public var shape: [Int] {
     vector.isEmpty ? [0, 0] : [1, vector.count]
   }
@@ -23,19 +32,24 @@ public struct Vector: CustomStringConvertible {
     guard shape == v.shape else {
       throw MatrixError.shapesMismatch
     }
-    // TODO
-    vector = [7, 10]
+    for column in 0..<vector.count {
+      self[column] += v[column]
+    }
   }
+
   public mutating func sub(_ v: inout Vector) throws {
     guard shape == v.shape else {
       throw MatrixError.shapesMismatch
     }
-    // TODO
-    vector = [-3, -4]
+    for column in 0..<vector.count {
+      self[column] -= v[column]
+    }
   }
+
   public mutating func scl(_ a: K) {
-    // TODO
-    vector = [4, 6]
+    for column in 0..<vector.count {
+      self[column] *= a
+    }
 
   }
 

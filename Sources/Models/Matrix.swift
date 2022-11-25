@@ -20,6 +20,15 @@ public struct Matrix: CustomStringConvertible {
     self.matrix = matrix
   }
 
+  public subscript(index: Int) -> [K] {
+    get {
+      return matrix[index]
+    }
+    set(newValue) {
+      matrix[index] = newValue
+    }
+  }
+
   public var shape: [Int] {
     matrix.isEmpty ? [0, 0] : [matrix.count, matrix[0].count]
   }
@@ -40,19 +49,30 @@ public struct Matrix: CustomStringConvertible {
     guard shape == v.shape else {
       throw MatrixError.shapesMismatch
     }
-    // TODO
-    matrix = [[8, 6], [1, 6]]
+    for row in 0..<matrix.count {
+      for column in 0..<matrix[row].count {
+        self[row][column] += v[row][column]
+      }
+    }
   }
+
   public mutating func sub(_ v: inout Matrix) throws {
     guard shape == v.shape else {
       throw MatrixError.shapesMismatch
     }
-    // TODO
-    matrix = [[-6, -2], [5, 2]]
+    for row in 0..<matrix.count {
+      for column in 0..<matrix[row].count {
+        self[row][column] -= v[row][column]
+      }
+    }
   }
+
   public mutating func scl(_ a: K) {
-    // TODO
-    matrix = [[2, 4], [6, 8]]
+    for row in 0..<matrix.count {
+      for column in 0..<matrix[row].count {
+        self[row][column] *= a
+      }
+    }
   }
 
 }
