@@ -2,7 +2,7 @@ import Models
 import Utils
 
 public func linear_combination(_ u: inout [Vector], _ coefs: inout [K]) throws -> Vector {
-  // Checks
+  // Perform checks
   guard u.count == coefs.count else {
     throw MatrixError.shapesMismatch
   }
@@ -10,12 +10,18 @@ public func linear_combination(_ u: inout [Vector], _ coefs: inout [K]) throws -
     return Vector([])
   }
 
-  // Linear combination
-  var finalVector = Vector(Array(repeating: 0, count: u[0].vector.count))
-  for i in 0..<u.count {
-    var vector = u[i]
-    vector.scl(coefs[i])
-    try finalVector.add(&vector)
+  // Calculate linear combination using allowed fused multiply-add function
+  var finalVector = [K]()
+  for column in 0..<u[0].count {
+    var linearCombination: K = 0
+    for row in 0..<u.count {
+      guard u[0].vector.count == u[row].vector.count else {
+        throw MatrixError.shapesMismatch
+      }
+      // fma function
+      linearCombination.addProduct(u[row][column], coefs[row])
+    }
+    finalVector.append(linearCombination)
   }
-  return finalVector
+  return Vector(finalVector)
 }

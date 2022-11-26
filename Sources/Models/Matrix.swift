@@ -20,6 +20,7 @@ public struct Matrix: Equatable, CustomStringConvertible {
     self.matrix = matrix
   }
 
+  // MARK: - Utilities
   public subscript(index: Int) -> [K] {
     get {
       return matrix[index]
@@ -29,16 +30,16 @@ public struct Matrix: Equatable, CustomStringConvertible {
     }
   }
 
-  public static func == (m1: Matrix, m2: Matrix) -> Bool {
-    m1.matrix == m2.matrix
+  public var count: Int {
+    matrix.count
   }
 
   public var shape: [Int] {
-    matrix.isEmpty ? [0, 0] : [matrix.count, matrix[0].count]
+    matrix.isEmpty ? [0, 0] : [count, matrix[0].count]
   }
 
   public var isSquare: Bool {
-    matrix.isEmpty ? true : matrix.count == matrix[0].count
+    matrix.isEmpty ? true : count == matrix[0].count
   }
 
   public var description: String {
@@ -49,11 +50,16 @@ public struct Matrix: Equatable, CustomStringConvertible {
     return result.joined(separator: "\n")
   }
 
+  public static func == (m1: Matrix, m2: Matrix) -> Bool {
+    m1.matrix == m2.matrix
+  }
+
+  // MARK: - Math
   public mutating func add(_ v: inout Matrix) throws {
     guard shape == v.shape else {
       throw MatrixError.shapesMismatch
     }
-    for row in 0..<matrix.count {
+    for row in 0..<count {
       for column in 0..<matrix[row].count {
         self[row][column] += v[row][column]
       }
@@ -64,7 +70,7 @@ public struct Matrix: Equatable, CustomStringConvertible {
     guard shape == v.shape else {
       throw MatrixError.shapesMismatch
     }
-    for row in 0..<matrix.count {
+    for row in 0..<count {
       for column in 0..<matrix[row].count {
         self[row][column] -= v[row][column]
       }
@@ -72,7 +78,7 @@ public struct Matrix: Equatable, CustomStringConvertible {
   }
 
   public mutating func scl(_ a: K) {
-    for row in 0..<matrix.count {
+    for row in 0..<count {
       for column in 0..<matrix[row].count {
         self[row][column] *= a
       }
