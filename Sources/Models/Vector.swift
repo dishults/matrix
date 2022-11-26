@@ -1,6 +1,6 @@
 import Utils
 
-public struct Vector: Equatable, CustomStringConvertible {
+public struct Vector: V, Equatable, CustomStringConvertible {
   public var vector: [K]
 
   public init(_ vector: [K]) {
@@ -28,7 +28,7 @@ public struct Vector: Equatable, CustomStringConvertible {
   public var description: String {
     var result = [String]()
     for n in vector {
-      result.append("\(n)")
+      result.append("\([n])")
     }
     return result.joined(separator: "\n")
   }
@@ -60,7 +60,21 @@ public struct Vector: Equatable, CustomStringConvertible {
     for column in 0..<count {
       self[column] *= a
     }
+  }
 
+  public func lerp(_ v: V, _ t: Float32) throws -> V {
+    guard let other = v as? Vector else {
+      throw GenericError.typesMismatch
+    }
+    guard shape == other.shape else {
+      throw MatrixError.shapesMismatch
+    }
+    var finalVector = [K]()
+    for column in 0..<count {
+      let k = try self[column].lerp(other[column], t)
+      finalVector.append(k as! K)
+    }
+    return Vector(finalVector)
   }
 
 }

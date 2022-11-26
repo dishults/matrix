@@ -1,6 +1,6 @@
 import Utils
 
-public struct Matrix: Equatable, CustomStringConvertible {
+public struct Matrix: V, Equatable, CustomStringConvertible {
   public var matrix: [[K]]
 
   public init(_ matrix: [[K]]) throws {
@@ -83,6 +83,25 @@ public struct Matrix: Equatable, CustomStringConvertible {
         self[row][column] *= a
       }
     }
+  }
+
+  public func lerp(_ v: V, _ t: Float32) throws -> V {
+    guard let other = v as? Matrix else {
+      throw GenericError.typesMismatch
+    }
+    guard shape == other.shape else {
+      throw MatrixError.shapesMismatch
+    }
+    var finalMatrix = [[K]]()
+    for row in 0..<count {
+      var vector = [K]()
+      for column in 0..<count {
+        let k = try self[row][column].lerp(other[row][column], t)
+        vector.append(k as! K)
+      }
+      finalMatrix.append(vector)
+    }
+    return try Matrix(finalMatrix)
   }
 
 }
