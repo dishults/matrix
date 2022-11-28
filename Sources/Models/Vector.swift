@@ -1,5 +1,7 @@
 import Utils
 
+import func Foundation.pow
+
 public struct Vector: V, Equatable, CustomStringConvertible {
   public var vector: [K]
 
@@ -86,6 +88,21 @@ public struct Vector: V, Equatable, CustomStringConvertible {
       dot.addProduct(self[i], v[i])
     }
     return dot
+  }
+
+  // Taxicab / Manhattan norm
+  public func norm_1() -> Float32 {
+    vector.reduce(0, { result, k in result + k.abs })
+  }
+
+  // Euclidean norm
+  public func norm() -> Float32 {
+    vector.reduce(0, { result, k in result + pow(k, 2) }).sqrt
+  }
+
+  // Supremum norm
+  public func norm_inf() -> Float32 {
+    vector.reduce(0, { result, k in max(result, k.abs) })
   }
 
 }

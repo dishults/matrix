@@ -7,6 +7,10 @@ public protocol V {
 }
 
 extension K: V {
+  public var abs: K {
+    self >= 0 ? self : self * -1
+  }
+
   public func lerp(_ v: V, _ t: Float32) throws -> V {
     guard let k = v as? K else {
       throw GenericError.typesMismatch
