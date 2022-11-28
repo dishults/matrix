@@ -77,4 +77,15 @@ public struct Vector: V, Equatable, CustomStringConvertible {
     return Vector(finalVector)
   }
 
+  public func dot(_ v: Vector) throws -> K {
+    guard shape == v.shape else {
+      throw MatrixError.shapesMismatch
+    }
+    var dot: K = 0
+    for i in 0..<count {
+      dot.addProduct(self[i], v[i])
+    }
+    return dot
+  }
+
 }
