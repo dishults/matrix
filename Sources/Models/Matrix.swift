@@ -34,8 +34,8 @@ public struct Matrix: V, Equatable, CustomStringConvertible {
     matrix.count
   }
 
-  public var shape: [Int] {
-    matrix.isEmpty ? [0, 0] : [count, matrix[0].count]
+  public var shape: (rows: Int, columns: Int) {
+    matrix.isEmpty ? (0, 0) : (count, matrix[0].count)
   }
 
   public var isSquare: Bool {
@@ -98,6 +98,43 @@ public struct Matrix: V, Equatable, CustomStringConvertible {
       for column in 0..<count {
         let k = try self[row][column].lerp(other[row][column], t)
         vector.append(k as! K)
+      }
+      finalMatrix.append(vector)
+    }
+    return try Matrix(finalMatrix)
+  }
+
+  public func mul_vec(_ vec: Vector) throws -> Vector {
+    let (rows, columns) = shape
+    guard rows == vec.count else {
+      throw MatrixError.shapesMismatch
+    }
+    var finalVector = [K]()
+    for column in 0..<columns {
+      var k: K = 0
+      for row in 0..<rows {
+        k.addProduct(self[row][column], vec[row])
+      }
+      finalVector.append(k)
+    }
+    return Vector(finalVector)
+  }
+
+  public func mul_mat(_ mat: Matrix) throws -> Matrix {
+    let (rows, columns) = shape
+    guard mat.shape == (columns, rows) else {
+      throw MatrixError.shapesMismatch
+    }
+    var finalMatrix = [[K]]()
+    for row in 0..<rows {
+      var vector = [K]()
+      for columnMat in 0..<rows {
+        var k: K = 0
+        for column in 0..<columns {
+          let rowMat = column
+          k.addProduct(self[row][column], mat[rowMat][columnMat])
+        }
+        vector.append(k)
       }
       finalMatrix.append(vector)
     }

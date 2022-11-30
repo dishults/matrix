@@ -23,8 +23,8 @@ public struct Vector: V, Equatable, CustomStringConvertible {
     vector.count
   }
 
-  public var shape: [Int] {
-    vector.isEmpty ? [0, 0] : [1, count]
+  public var shape: (rows: Int, columns: Int) {
+    vector.isEmpty ? (0, 0) : (1, count)
   }
 
   public var description: String {

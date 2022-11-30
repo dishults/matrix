@@ -2,7 +2,7 @@ import Models
 import Utils
 
 public func cross_product(_ u: inout Vector, _ v: inout Vector) throws -> Vector {
-  guard u.shape == v.shape && u.shape == [1, 3] else {
+  guard u.shape == v.shape && u.shape == (1, 3) else {
     throw VectorError.not3D
   }
   return Vector([
