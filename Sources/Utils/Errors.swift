@@ -2,7 +2,11 @@ public enum MatrixError: Error {
   case shapesMismatch
   case inconsistentShape
   case emptyRow
-  case zeroVector
+}
+
+public enum VectorError: Error {
+  case zeroOrEmpty
+  case not3D
 }
 
 public enum GenericError: Error {
