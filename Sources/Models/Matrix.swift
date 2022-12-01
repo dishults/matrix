@@ -141,4 +141,16 @@ public struct Matrix: V, Equatable, CustomStringConvertible {
     return try Matrix(finalMatrix)
   }
 
+  public func trace() throws -> K {
+    let (rows, columns) = shape
+    guard rows == columns else {
+      throw MatrixError.notSquare
+    }
+    var k: K = 0
+    for i in 0..<rows {
+      k += self[i][i]
+    }
+    return k
+  }
+
 }

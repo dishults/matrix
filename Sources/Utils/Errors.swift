@@ -2,6 +2,7 @@ public enum MatrixError: Error {
   case shapesMismatch
   case inconsistentShape
   case emptyRow
+  case notSquare
 }
 
 public enum VectorError: Error {
