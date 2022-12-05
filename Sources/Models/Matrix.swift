@@ -153,4 +153,17 @@ public struct Matrix: V, Equatable, CustomStringConvertible {
     return k
   }
 
+  public func transpose() throws -> Matrix {
+    let (rows, columns) = shape
+    var transposedMatrix = [[K]]()
+    for column in 0..<columns {
+      var vector = [K]()
+      for row in 0..<rows {
+        vector.append(matrix[row][column])
+      }
+      transposedMatrix.append(vector)
+    }
+    return try Matrix(transposedMatrix)
+  }
+
 }
