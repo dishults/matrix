@@ -166,4 +166,49 @@ public struct Matrix: V, Equatable, CustomStringConvertible {
     return try Matrix(transposedMatrix)
   }
 
+  public func row_echelon() throws -> Matrix {
+    var M = matrix
+    var column = 0
+    let (rows, columns) = shape
+    for row in 0..<rows {
+      if column >= columns {
+        return self
+      }
+      var r = row
+      while M[r][column] == 0 {
+        r += 1
+        if r == rows {
+          r = row
+          column += 1
+          if column == columns {
+            return try Matrix(M)
+          }
+        }
+      }
+
+      // Swap
+      if r != row {
+        M.swapAt(r, row)
+      }
+
+      // Divide
+      let pivot = M[row][column]
+      for c in 0..<columns {
+        M[row][c] /= pivot
+      }
+
+      // Subtract
+      for j in 0..<rows {
+        if j != row {
+          let num = M[j][column]
+          for c in 0..<columns {
+            M[j][c] -= num * M[r][c]
+          }
+        }
+      }
+      column += 1
+    }
+    return try Matrix(M)
+  }
+
 }
