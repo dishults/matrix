@@ -170,9 +170,10 @@ public struct Matrix: V, Equatable, CustomStringConvertible {
     var M = matrix
     var column = 0
     let (rows, columns) = shape
+
     for row in 0..<rows {
       if column >= columns {
-        return self
+        return try Matrix(M)
       }
       var r = row
       while M[r][column] == 0 {
@@ -193,16 +194,16 @@ public struct Matrix: V, Equatable, CustomStringConvertible {
 
       // Divide
       let pivot = M[row][column]
-      for c in 0..<columns {
-        M[row][c] /= pivot
+      if pivot != 1 {
+        M[row] = M[row].map { $0 / pivot }
       }
 
       // Subtract
-      for j in 0..<rows {
-        if j != row {
-          let num = M[j][column]
+      for r in 0..<rows {
+        if r != row {
+          let num = M[r][column]
           for c in 0..<columns {
-            M[j][c] -= num * M[r][c]
+            M[r][c] -= num * M[row][c]
           }
         }
       }

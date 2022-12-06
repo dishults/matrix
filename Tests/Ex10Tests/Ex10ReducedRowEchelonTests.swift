@@ -84,6 +84,18 @@ final class ReducedRowEchelonTests: XCTestCase {
         [0, 0, 1],
       ]
     ),
+    (
+      [  // Example that returns in 'if column >= columns'
+        [0, 1],
+        [1, 2],
+        [2, 3],
+      ],
+      [
+        [1, 0],
+        [0, 1],
+        [0, 0],
+      ]
+    ),
   ]
 
   func testCorrectCases() throws {
